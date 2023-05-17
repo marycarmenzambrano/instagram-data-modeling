@@ -20,13 +20,19 @@ class User(Base):
     firstname = Column(String(250), nullable=False)
     lastname = Column(String(250), nullable=False)
     email = Column(String(250), nullable=False)
-    follower_id = Column(Integer, ForeignKey("follower.id"))
-    relacion_follower = relationship(Follower)
+    follower_id = Column(Integer, ForeignKey('follower.id'))
+    post_id = Column(Integer, ForeignKey('post.id'))
+    relacion_follower = relationship('Follower')
+    relacion_post = relationship('Post')
     
+
+
 
 class Post(Base):
     __tablename__ = 'post'
     id = Column(Integer, primary_key=True)
+    comment_id = Column(Integer, ForeignKey('comment.id'))
+    relacion_comment = relationship('Comment')
     
 
 class Comment(Base):
@@ -36,12 +42,12 @@ class Comment(Base):
 
 
 
+
     def to_dict(self):
         return {}
 
 
-  person_id = Column(Integer, ForeignKey('person.id'))
-    person = relationship(Person)
+ 
 
 try:
     result = render_er(Base, 'diagram.png')
